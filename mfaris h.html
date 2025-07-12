@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faris Recipe Book</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #fff8e1, #ffe0b2);
+      color: #333;
+      transition: all 0.3s ease-in-out;
+    }
+    header {
+      background: linear-gradient(to right, #ff7043, #ff9800);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #fff3e0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 15px;
+      transition: transform 0.2s ease;
+    }
+    .recipe {
+      background: #fff8dc;
+      border-left: 6px solid #ff7043;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease-in-out;
+    }
+    .recipe:hover {
+      background: #fff3c4;
+      transform: scale(1.02);
+    }
+    .recipe h3 {
+      margin-top: 0;
+    }
+    #loadMore {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 20px auto;
+      font-size: 1rem;
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 1rem;
+      color: #555;
+      background: #ffe0b2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    🍽️ Faris Recipe Book 🍲
+  </header>
+  <div class="container">
+    <h2>Welcome to Faris Recipe Book!</h2>
+    <p>Explore 100 tasty recipes from around the world.</p>
+
+    <div id="recipeContainer"></div>
+    <button id="loadMore">Load More Recipes</button>
+  </div>
+
+  <footer>
+    &copy; 2025 Faris Recipe Book | Enjoy Cooking & Sharing! 🍴
+  </footer>
+
+  <script>
+    const recipes = [
+      { title: "Spaghetti Carbonara", ingredients: "Spaghetti, eggs, Parmesan, pancetta, pepper", steps: "Boil pasta. Cook pancetta. Mix with eggs and cheese. Combine." },
+      { title: "Chicken Curry", ingredients: "Chicken, curry powder, onion, tomato, garlic, ginger", steps: "Cook onions, garlic, and ginger. Add chicken and spices. Simmer." },
+      { title: "Pancakes", ingredients: "Flour, milk, eggs, baking powder, sugar", steps: "Mix ingredients. Cook on skillet until golden brown." },
+      { title: "Beef Stroganoff", ingredients: "Beef, mushrooms, onion, sour cream, butter", steps: "Cook beef and mushrooms. Add cream and serve with rice or pasta." },
+      { title: "Greek Salad", ingredients: "Tomatoes, cucumbers, olives, feta, olive oil", steps: "Chop ingredients. Mix and drizzle with olive oil." },
+    ];
+
+    for (let i = 6; i <= 100; i++) {
+      recipes.push({
+        title: `Recipe #${i}`,
+        ingredients: "Ingredient A, Ingredient B, Ingredient C",
+        steps: "Step 1: Do something. Step 2: Do something else. Step 3: Finish."
+      });
+    }
+
+    let currentIndex = 0;
+    const batchSize = 10;
+    const container = document.getElementById('recipeContainer');
+    const loadMoreBtn = document.getElementById('loadMore');
+
+    function loadRecipes() {
+      for (let i = 0; i < batchSize && currentIndex < recipes.length; i++, currentIndex++) {
+        const recipe = recipes[currentIndex];
+        const div = document.createElement('div');
+        div.className = 'recipe';
+        div.innerHTML = `
+          <h3>🍴 ${recipe.title}</h3>
+          <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+          <p><strong>Steps:</strong> ${recipe.steps}</p>
+        `;
+        container.appendChild(div);
+      }
+      if (currentIndex >= recipes.length) {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+
+    loadMoreBtn.addEventListener('click', loadRecipes);
+    window.onload = loadRecipes;
+  </script>
+</body>
+</html>
+
